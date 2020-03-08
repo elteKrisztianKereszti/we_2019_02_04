@@ -6,6 +6,10 @@
     <body>
         <div layout:fragment="content">
             <p>Hello world</p>
+            <h1 th:text="${title}"></h1>
+          <ul>
+              <li th:each="name : ${actors}" th:text="${name}">names</li>
+          </ul>
         </div>
     </body>
 </html>
