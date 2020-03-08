@@ -1,0 +1,40 @@
+<h2 class="display-2 my-3">New issue</h2>
+
+<form action="" novalidate>
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control is-invalid" id="title" placeholder="Title" required>
+    <div class="invalid-feedback">
+      Please provide a title!
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" rows="5" required></textarea>
+    <div class="invalid-feedback">
+      Please provide a description!
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="place">Place</label>
+    <input type="text" class="form-control" id="place" placeholder="Place" required>
+    <div class="invalid-feedback">
+      Please provide a place!
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select class="form-control" id="status" required>
+      <option value="NEW">New</option>
+      <option value="DOING">Doing</option>
+      <option value="DONE">Done</option>
+    </select>
+    <div class="invalid-feedback">
+        Please provide a status!
+      </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
