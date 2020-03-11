@@ -21,8 +21,8 @@ public class IssueService {
     @Autowired
     private IssueRepository issueRepository;
        
-    public Iterable<Issue> getAll() {
-        return issueRepository.findAll();
+    public List<Issue> getAll() {
+        return (List<Issue>) issueRepository.findAll();
     }
     
     public List<Issue> getAllByPlace(String place) {
