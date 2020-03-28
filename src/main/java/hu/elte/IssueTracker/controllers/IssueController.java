@@ -36,7 +36,7 @@ public class IssueController {
     return "list";
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public String getIssue(@PathVariable Integer id, Model model) {
     Optional<Issue> dbIssue = issueRepository.findById(id);
 
@@ -51,14 +51,14 @@ public class IssueController {
     return "issue";
   }
 
-  @GetMapping("new")
+  @GetMapping("/new")
   public String addForm(Model model) {
     model.addAttribute("issue", new Issue());
 
     return "issue-form";
   }
 
-  @PostMapping("new")
+  @PostMapping("/new")
   public String addIssue(@Valid Issue issue, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("errors", bindingResult.getAllErrors());
@@ -69,7 +69,7 @@ public class IssueController {
     return "redirect:/issues";
   }
 
-  @GetMapping("{id}/edit")
+  @GetMapping("/{id}/edit")
   public String editForm(@PathVariable Integer id, Model model) {
     Optional<Issue> dbIssue = issueRepository.findById(id);
 
@@ -81,7 +81,7 @@ public class IssueController {
     return "issue-form";
   }
 
-  @PostMapping("{id}/edit")
+  @PostMapping("/{id}/edit")
   public String editIssue(@PathVariable Integer id, @Valid Issue issue, BindingResult bindingResult, Model model) {
     Optional<Issue> dbIssue = issueRepository.findById(id);
 
@@ -96,6 +96,15 @@ public class IssueController {
 
     issueRepository.save(issue);
 
+    return "redirect:/issues";
+  }
+
+  @GetMapping("/{id}/delete")
+  public String deleteIssue(@PathVariable Integer id) {
+    try {
+      issueRepository.deleteById(id);
+    } catch (Exception e) {
+    }
     return "redirect:/issues";
   }
 }
