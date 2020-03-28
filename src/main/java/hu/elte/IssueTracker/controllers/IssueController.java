@@ -59,14 +59,43 @@ public class IssueController {
   }
 
   @PostMapping("new")
-  public String addIssue(@Valid Issue issue, BindingResult bindingResult, Model model)
-  {
+  public String addIssue(@Valid Issue issue, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-        model.addAttribute("errors", bindingResult.getAllErrors());
-        return "issue-form";
+      model.addAttribute("errors", bindingResult.getAllErrors());
+      return "issue-form";
     }
-    
+
     issueRepository.save(issue);
+    return "redirect:/issues";
+  }
+
+  @GetMapping("{id}/edit")
+  public String editForm(@PathVariable Integer id, Model model) {
+    Optional<Issue> dbIssue = issueRepository.findById(id);
+
+    if (dbIssue.isEmpty()) {
+      return "redirect:/issues";
+    }
+
+    model.addAttribute("issue", issueRepository.findById(id).get());
+    return "issue-form";
+  }
+
+  @PostMapping("{id}/edit")
+  public String editIssue(@PathVariable Integer id, @Valid Issue issue, BindingResult bindingResult, Model model) {
+    Optional<Issue> dbIssue = issueRepository.findById(id);
+
+    if (dbIssue.isEmpty()) {
+      return "redirect:/issues";
+    }
+
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("errors", bindingResult.getAllErrors());
+      return "issue-form";
+    }
+
+    issueRepository.save(issue);
+
     return "redirect:/issues";
   }
 }
