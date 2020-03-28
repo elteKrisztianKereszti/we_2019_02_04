@@ -5,11 +5,14 @@
  */
 package hu.elte.IssueTracker.controllers;
 
+import hu.elte.IssueTracker.entities.Issue;
 import hu.elte.IssueTracker.repositories.IssueRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -19,9 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/issues")
 public class IssueController {
+
   @Autowired
   private IssueRepository issueRepository;
-  
+
   @GetMapping("")
   public String getAll(Model model) {
     model.addAttribute("title", "Issue list");
@@ -29,4 +33,18 @@ public class IssueController {
     return "list";
   }
 
+  @GetMapping("{id}")
+  public String getIssue(@PathVariable Integer id, Model model) {
+    Optional<Issue> dbIssue = issueRepository.findById(id);
+
+    if (dbIssue.isEmpty()) {
+      return "redirect:/issues";
+    }
+
+    Issue issue = dbIssue.get();
+
+    model.addAttribute("title", issue.getTitle());
+    model.addAttribute("issue", issue);
+    return "issue";
+  }
 }

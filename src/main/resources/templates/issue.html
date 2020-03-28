@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layout">
+  <head>
+    <title>Content page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <div layout:fragment="content">
+
+      <h2 class="display-2 my-3">Details</h2>
+      <dl class="row">
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9" th:text="${issue.status}"><span class="badge badge-danger">NEW</span></dd>
+
+        <dt class="col-sm-3">Title</dt>
+        <dd class="col-sm-9" th:text="${issue.title}">Bad machine</dd>
+
+        <dt class="col-sm-3">Place</dt>
+        <dd class="col-sm-9" th:text="${issue.place}">PC-9</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9" th:text="${issue.created_at}">2019.01.01.</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9" th:text="${issue.description}">Some description</dd>
+
+        <dt class="col-sm-3">User</dt>
+        <dd class="col-sm-9">gyozke (TODO)</dd>
+
+      </dl>
+
+      <p>
+        <a class="btn btn-primary" href="#" role="button">Edit</a>
+        <a class="btn btn-outline-danger" href="#" role="button">Delete</a>
+      </p>
+
+    </div>
+  </body>
+</html>

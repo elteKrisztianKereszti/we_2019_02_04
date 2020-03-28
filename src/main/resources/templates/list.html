@@ -13,6 +13,7 @@
             <div class="list-group">
                 <a th:each="issue : ${issues}"
                    href="#"
+                   th:href="@{/issues/{id}(id=${issue.id})}"
                    class="list-group-item list-group-item-action"
                    th:classappend="${'list-group-item-' + (issue.status.name() == 'NEW' ? 'danger' : (issue.status.name() == 'DOING' ? 'warning' : 'success')) }">
                     <div class="d-flex w-100 justify-content-between align-items-center">
