@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -46,5 +47,19 @@ public class IssueController {
     model.addAttribute("title", issue.getTitle());
     model.addAttribute("issue", issue);
     return "issue";
+  }
+
+  @GetMapping("new")
+  public String addForm(Model model) {
+    model.addAttribute("issue", new Issue());
+
+    return "issue-form";
+  }
+
+  @PostMapping("new")
+  public String addIssue(Issue issue, Model model)
+  {
+    issueRepository.save(issue);
+    return "redirect:/issues";
   }
 }

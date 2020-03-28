@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layout">
+  <head>
+    <title>Content page</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+
+      <h2 class="display-2 my-3">New issue</h2>
+
+      <form action="" novalidate method="post"
+            th:action="@{/issues/new}"
+            th:object="${issue}">
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" placeholder="Title" required
+                 th:errorclass="is-invalid"
+                 th:field="*{title}">
+          <div class="invalid-feedback" th:errors="*{title}">
+            Please provide a title!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" rows="5" required
+                    th:errorclass="is-invalid"
+                    th:field="*{description}"></textarea>
+          <div class="invalid-feedback" th:errors="*{description}">
+            Please provide a description!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="place">Place</label>
+          <input type="text" class="form-control" id="place" placeholder="Place" required
+                 th:errorclass="is-invalid"
+                 th:field="*{place}">
+          <div class="invalid-feedback" th:errors="*{place}">
+            Please provide a place!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control" id="status" required
+                  th:field="*{status}">
+            <option value="NEW">New</option>
+            <option value="DOING">Doing</option>
+            <option value="DONE">Done</option>
+          </select>
+          <div class="invalid-feedback">
+            Please provide a status!
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+
+    </div>
+  </body>
+</html>
