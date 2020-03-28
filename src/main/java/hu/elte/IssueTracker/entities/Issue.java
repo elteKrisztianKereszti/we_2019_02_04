@@ -14,12 +14,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 
 /**
  *
@@ -37,13 +41,20 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Length(min = 2)
     @Column
     @NotNull
     private String title;
 
+
+    @NotBlank
     @Column
     private String description;
 
+    
+    @NotBlank
+    @Pattern(regexp = "^PC-[0-9][0-9]*$", message = "must be PC-<number>")
     @Column
     @NotNull
     private String place;
