@@ -36,6 +36,20 @@
            th:href="@{/issues/{id}/delete(id=${issue.id})}">Delete</a>
       </p>
 
+      <form action="" novalidate th:action="@{/issues/{id}/message(id=${issue.id})}" th:object="${message}" method="post">
+
+        <div class="form-group">
+          <label for="text">Message</label>
+          <textarea th:field="*{text}" class="form-control" id="text" rows="5" required th:errorclass="is-invalid"></textarea>
+          <div class="invalid-feedback" th:errors="*{text}">
+            Please provide a message text!
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+      
       <div class="list-group">
         <div th:each="message : ${issue.getMessages()}" class="list-group-item">
           <div class="d-flex w-100 justify-content-between">

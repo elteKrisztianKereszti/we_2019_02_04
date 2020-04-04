@@ -6,7 +6,9 @@
 package hu.elte.IssueTracker.controllers;
 
 import hu.elte.IssueTracker.entities.Issue;
+import hu.elte.IssueTracker.entities.Message;
 import hu.elte.IssueTracker.repositories.IssueRepository;
+import hu.elte.IssueTracker.repositories.MessageRepository;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class IssueController {
 
   @Autowired
   private IssueRepository issueRepository;
+  
+  @Autowired
+  private MessageRepository messageRepository;
 
   @GetMapping("")
   public String getAll(Model model) {
@@ -37,7 +42,7 @@ public class IssueController {
   }
 
   @GetMapping("/{id}")
-  public String getIssue(@PathVariable Integer id, Model model) {
+  public String getIssue(@PathVariable Integer id, Message message, Model model) {
     Optional<Issue> dbIssue = issueRepository.findById(id);
 
     if (dbIssue.isEmpty()) {
@@ -48,6 +53,8 @@ public class IssueController {
 
     model.addAttribute("title", issue.getTitle());
     model.addAttribute("issue", issue);
+    model.addAttribute("message", message); // Add this line
+    
     return "issue";
   }
 
@@ -105,6 +112,19 @@ public class IssueController {
       issueRepository.deleteById(id);
     } catch (Exception e) {
     }
+    return "redirect:/issues";
+  }
+  
+  @PostMapping("/{id}/message")
+  public String addMessage(@PathVariable Integer id, @Valid Message message, BindingResult bindingResult, Model model) throws Exception {
+    if (bindingResult.hasErrors()) {
+      return getIssue(id, message, model);
+    }
+
+    Issue issue = issueRepository.findById(id).get();
+    message.setId(null);
+    message.setIssue(issue);
+    messageRepository.save(message);
     return "redirect:/issues";
   }
 }
