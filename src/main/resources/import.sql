@@ -12,3 +12,9 @@ insert into label (text, created_at, updated_at) values ('Low', CURRENT_TIMESTAM
 insert into label (text, created_at, updated_at) values ('High', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 insert into label (text, created_at, updated_at) values ('Blocked', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 insert into label (text, created_at, updated_at) values ('Need approval', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+
+insert into issue_labels (issues_id, labels_id) values (1, 1);
+insert into issue_labels (issues_id, labels_id) values (1, 3);
+insert into issue_labels (issues_id, labels_id) values (1, 4);
+insert into issue_labels (issues_id, labels_id) values (2, 1);
+insert into issue_labels (issues_id, labels_id) values (3, 2);

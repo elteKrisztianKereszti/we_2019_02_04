@@ -14,6 +14,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -79,4 +81,8 @@ public class Issue {
 
     @OneToMany(mappedBy = "issue")
     private List<Message> messages;
+    
+    @ManyToMany
+    @JoinTable
+    private List<Label> labels;
 }
