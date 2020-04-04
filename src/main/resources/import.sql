@@ -7,3 +7,8 @@ insert into message (issue_id, text, created_at, updated_at) values (1, 'The thi
 insert into message (issue_id, text, created_at, updated_at) values (2, 'that should', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 insert into message (issue_id, text, created_at, updated_at) values (3, 'not', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
 insert into message (issue_id, text, created_at, updated_at) values (3, 'be', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+
+insert into label (text, created_at, updated_at) values ('Low', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into label (text, created_at, updated_at) values ('High', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into label (text, created_at, updated_at) values ('Blocked', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
+insert into label (text, created_at, updated_at) values ('Need approval', CURRENT_TIMESTAMP(),  CURRENT_TIMESTAMP());
