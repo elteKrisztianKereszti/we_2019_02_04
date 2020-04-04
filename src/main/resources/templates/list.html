@@ -1,38 +1,38 @@
 <!DOCTYPE HTML>
 <html layout:decorator="layout">
-    <head>
-        <title>Content page</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <body>
-        <div layout:fragment="content">
-
-            
-            <h2 class="display-2 my-3" th:text="${title}">My issues</h2>
-            <p><a class="btn btn-primary" href="#" role="button" th:href="@{/issues/new}">New issue</a></p>
-            <div class="list-group">
-                <a th:each="issue : ${issues}"
-                   href="#"
-                   th:href="@{/issues/{id}(id=${issue.id})}"
-                   class="list-group-item list-group-item-action"
-                   th:classappend="${'list-group-item-' + (issue.status.name() == 'NEW' ? 'danger' : (issue.status.name() == 'DOING' ? 'warning' : 'success')) }">
-                    <div class="d-flex w-100 justify-content-between align-items-center">
-                        <h5 class="mb-1" th:text="${issue.title}">Bad machine</h5>
-                        <span class="badge"
-                              th:text="${issue.status}"
-                              th:classappend="${'badge-' + (issue.status.name() == 'NEW' ? 'danger' : (issue.status.name() == 'DOING' ? 'warning' : 'success')) }">NEW
-                        </span>
-                    </div>
-                    <p class="mb-1" th:text="${issue.description}">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small>
-                        <i class="fas fa-map-marker-alt" ></i><span th:text="${issue.place}">PC1</span> 
-                        <i class="fas fa-calendar-alt"></i><span th:text="${#temporals.format(issue.created_at, 'dd-MM-yyyy')}">2019.01.01.</span> 
-                        <i class="fas fa-comment"></i><span class="badge badge-light badge-pill">3</span>
-                    </small>
-                </a>
-            </div>            
+  <head>
+    <title>Content page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <div layout:fragment="content">
 
 
-        </div>
-    </body>
+      <h2 class="display-2 my-3" th:text="${title}">My issues</h2>
+      <p><a class="btn btn-primary" href="#" role="button" th:href="@{/issues/new}">New issue</a></p>
+      <div class="list-group">
+        <a th:each="issue : ${issues}"
+           href="#"
+           th:href="@{/issues/{id}(id=${issue.id})}"
+           class="list-group-item list-group-item-action"
+           th:classappend="${'list-group-item-' + (issue.status.name() == 'NEW' ? 'danger' : (issue.status.name() == 'DOING' ? 'warning' : 'success')) }">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <h5 class="mb-1" th:text="${issue.title}">Bad machine</h5>
+            <span class="badge"
+                  th:text="${issue.status}"
+                  th:classappend="${'badge-' + (issue.status.name() == 'NEW' ? 'danger' : (issue.status.name() == 'DOING' ? 'warning' : 'success')) }">NEW
+            </span>
+          </div>
+          <p class="mb-1" th:text="${issue.description}">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+          <small>
+            <i class="fas fa-map-marker-alt" ></i><span th:text="${issue.place}">PC1</span> 
+            <i class="fas fa-calendar-alt"></i><span th:text="${#temporals.format(issue.created_at, 'dd-MM-yyyy')}">2019.01.01.</span> 
+            <i class="fas fa-comment"></i><span class="badge badge-light badge-pill" th:text="${issue.getMessages().size()}">3</span>
+          </small>
+        </a>
+      </div>            
+
+
+    </div>
+  </body>
 </html>

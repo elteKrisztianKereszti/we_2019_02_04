@@ -36,6 +36,15 @@
            th:href="@{/issues/{id}/delete(id=${issue.id})}">Delete</a>
       </p>
 
+      <div class="list-group">
+        <div th:each="message : ${issue.getMessages()}" class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <p class="mb-1" th:text="${message.text}">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            <small th:text="${#temporals.format(message.created_at, 'dd-MM-yyyy')}">2019.01.01</small>
+          </div>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>
