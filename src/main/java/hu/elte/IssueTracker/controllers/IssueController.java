@@ -38,7 +38,7 @@ public class IssueController {
   public String getAll(Model model) {
     model.addAttribute("title", "Issue list");
     model.addAttribute("issues", issueRepository.findAll());
-    return "list";
+    return "issue-list";
   }
 
   @GetMapping("/{id}")
@@ -55,7 +55,7 @@ public class IssueController {
     model.addAttribute("issue", issue);
     model.addAttribute("message", message); // Add this line
     
-    return "issue";
+    return "issue-detail";
   }
 
   @GetMapping("/new")

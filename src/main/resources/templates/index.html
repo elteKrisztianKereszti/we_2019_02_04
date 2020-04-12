@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layouts/base">
+    <head>
+        <title>Content page</title>
+    </head>
+    <body>
+        <div layout:fragment="main">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-4">Issue tracker</h1>
+                    <p class="lead">Submit issues and track them!</p>
+                    <p><a class="btn btn-primary" href="#" role="button" th:href="@{/issues/new}">New issue</a></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 
