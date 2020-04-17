@@ -23,6 +23,11 @@
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9" th:text="${issue.description}">Some description</dd>
 
+        <dt class="col-sm-3">Labels</dt>
+        <dd class="col-sm-9">
+          <span th:each="label : ${issue.getLabels()}" th:text="${label.text}" class="badge badge-primary">label</span>
+        </dd>
+        
         <dt class="col-sm-3">User</dt>
         <dd class="col-sm-9">gyozke (TODO)</dd>
 
