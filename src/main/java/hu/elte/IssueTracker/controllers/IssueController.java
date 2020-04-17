@@ -11,6 +11,7 @@ import hu.elte.IssueTracker.entities.Message;
 import hu.elte.IssueTracker.repositories.IssueRepository;
 import hu.elte.IssueTracker.repositories.LabelRepository;
 import hu.elte.IssueTracker.repositories.MessageRepository;
+import hu.elte.IssueTracker.security.AuthenticatedUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/issues")
 public class IssueController {
 
+  @Autowired
+  private AuthenticatedUser authenticatedUser;
+  
   @Autowired
   private IssueRepository issueRepository;
 
@@ -86,6 +90,7 @@ public class IssueController {
       return "issue-form";
     }
 
+    issue.setUser(authenticatedUser.getUser());
     issueRepository.save(issue);
     return "redirect:/issues";
   }
