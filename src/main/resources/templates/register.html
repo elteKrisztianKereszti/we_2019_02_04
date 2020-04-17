@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layouts/common">
+  <head>
+    <title>Content page</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+
+      <h2 class="display-2 my-3" >Register</h2>
+      <div th:if="${error}" th:text="${error}">
+        Invalid username and password.
+      </div>
+      <form action="" novalidate th:action="@{/register}" method="post">
+        <div class="form-group">
+          <input type="text" class="form-control" id="username" placeholder="Username" required name="username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="passowrd" placeholder="Password" required name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+    </div>
+  </body>
+</html>
