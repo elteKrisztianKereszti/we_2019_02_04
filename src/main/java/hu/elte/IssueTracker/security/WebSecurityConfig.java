@@ -26,10 +26,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
       .authorizeRequests()
-        .antMatchers("/").permitAll()
+        .antMatchers("/", "/h2/**").permitAll()
         .anyRequest().authenticated()
         .and()
       .formLogin()
+        .permitAll()
+        .and()
+      .csrf()         // important!
+        .ignoringAntMatchers("/h2/**")
+        .and()
+      .headers()
+        .frameOptions().disable()  // important!
         .and()
       .httpBasic();
   }
