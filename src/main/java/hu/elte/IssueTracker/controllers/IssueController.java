@@ -6,11 +6,13 @@
 package hu.elte.IssueTracker.controllers;
 
 import hu.elte.IssueTracker.entities.Issue;
+import hu.elte.IssueTracker.entities.Label;
 import hu.elte.IssueTracker.entities.Message;
 import hu.elte.IssueTracker.repositories.IssueRepository;
 import hu.elte.IssueTracker.repositories.LabelRepository;
 import hu.elte.IssueTracker.repositories.MessageRepository;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,11 +99,20 @@ public class IssueController {
     }
 
     model.addAttribute("issue", issueRepository.findById(id).get());
+    model.addAttribute("allLabels", labelRepository.findAll());
+
+    List<Integer> issueLabels = new ArrayList<Integer>();
+    for (Label label : dbIssue.get().getLabels()) {
+      issueLabels.add(label.getId());
+    }
+    model.addAttribute("issueLabels", issueLabels);
     return "issue-form";
   }
 
   @PostMapping("/{id}/edit")
-  public String editIssue(@PathVariable Integer id, @Valid Issue issue, BindingResult bindingResult, Model model) {
+  public String editIssue(@PathVariable Integer id, @Valid Issue issue, BindingResult bindingResult,
+          @RequestParam(value = "labels", required = false) ArrayList<Integer> labels,
+          Model model) {
     Optional<Issue> dbIssue = issueRepository.findById(id);
 
     if (dbIssue.isEmpty()) {
@@ -110,6 +121,8 @@ public class IssueController {
 
     if (bindingResult.hasErrors()) {
       model.addAttribute("errors", bindingResult.getAllErrors());
+      model.addAttribute("allLabels", labelRepository.findAll());
+      model.addAttribute("issueLabels", labels);
       return "issue-form";
     }
 
