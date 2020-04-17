@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -95,6 +96,7 @@ public class IssueController {
     return "redirect:/issues";
   }
 
+  @Secured({ "ROLE_ADMIN" })
   @GetMapping("/{id}/edit")
   public String editForm(@PathVariable Integer id, Model model) {
     Optional<Issue> dbIssue = issueRepository.findById(id);
@@ -114,6 +116,7 @@ public class IssueController {
     return "issue-form";
   }
 
+  @Secured({ "ROLE_ADMIN" })
   @PostMapping("/{id}/edit")
   public String editIssue(@PathVariable Integer id, @Valid Issue issue, BindingResult bindingResult,
           @RequestParam(value = "labels", required = false) ArrayList<Integer> labels,
@@ -131,11 +134,13 @@ public class IssueController {
       return "issue-form";
     }
 
+    issue.setUser(dbIssue.get().getUser());
     issueRepository.save(issue);
 
     return "redirect:/issues";
   }
 
+  @Secured({ "ROLE_ADMIN" })
   @GetMapping("/{id}/delete")
   public String deleteIssue(@PathVariable Integer id) {
     try {
