@@ -8,7 +8,9 @@ package hu.elte.IssueTracker.controllers;
 import hu.elte.IssueTracker.entities.Issue;
 import hu.elte.IssueTracker.entities.Message;
 import hu.elte.IssueTracker.repositories.IssueRepository;
+import hu.elte.IssueTracker.repositories.LabelRepository;
 import hu.elte.IssueTracker.repositories.MessageRepository;
+import java.util.ArrayList;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -30,9 +33,12 @@ public class IssueController {
 
   @Autowired
   private IssueRepository issueRepository;
-  
+
   @Autowired
   private MessageRepository messageRepository;
+
+  @Autowired
+  private LabelRepository labelRepository;
 
   @GetMapping("")
   public String getAll(Model model) {
@@ -54,21 +60,27 @@ public class IssueController {
     model.addAttribute("title", issue.getTitle());
     model.addAttribute("issue", issue);
     model.addAttribute("message", message); // Add this line
-    
+
     return "issue-detail";
   }
 
   @GetMapping("/new")
   public String addForm(Model model) {
     model.addAttribute("issue", new Issue());
+    model.addAttribute("issueLabels", new ArrayList<Integer>());
+    model.addAttribute("allLabels", labelRepository.findAll());
 
     return "issue-form";
   }
 
   @PostMapping("/new")
-  public String addIssue(@Valid Issue issue, BindingResult bindingResult, Model model) {
+  public String addIssue(@Valid Issue issue, BindingResult bindingResult,
+          @RequestParam(value = "labels", required = false) ArrayList<Integer> labels,
+          Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("errors", bindingResult.getAllErrors());
+      model.addAttribute("issueLabels", labels);
+      model.addAttribute("allLabels", labelRepository.findAll());
       return "issue-form";
     }
 
@@ -114,7 +126,7 @@ public class IssueController {
     }
     return "redirect:/issues";
   }
-  
+
   @PostMapping("/{id}/message")
   public String addMessage(@PathVariable Integer id, @Valid Message message, BindingResult bindingResult, Model model) throws Exception {
     if (bindingResult.hasErrors()) {

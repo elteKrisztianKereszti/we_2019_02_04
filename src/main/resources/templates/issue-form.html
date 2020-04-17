@@ -7,7 +7,7 @@
     <div layout:fragment="content">
 
       <h2 class="display-2 my-3" th:text="${issue.id} == null ? 'New issue' : 'Edit issue'">New issue</h2>
-      
+
       <form action="" novalidate method="post"
             th:action="${issue.id} != null ? @{/issues/{id}/edit(id=${issue.id})} : @{/issues/new}"
             th:object="${issue}">
@@ -49,6 +49,20 @@
           </select>
           <div class="invalid-feedback">
             Please provide a status!
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-check" th:each="label : ${allLabels}">
+            <input class="form-check-input" type="checkbox" name="labels"
+                   th:value="${label.id}"
+                   th:checked="${#arrays.contains(issueLabels, label.id)}"
+                   th:id="${#ids.seq('labels')}">
+            <label class="form-check-label" for="defaultCheck1"
+                   th:text="${label.text}"
+                   th:for="${#ids.prev('labels')}">
+              Default checkbox
+            </label>
           </div>
         </div>
 
